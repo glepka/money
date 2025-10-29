@@ -204,34 +204,51 @@ const TransactionList = ({
                     <div
                       key={transaction.id}
                       className={styles.transaction}
-                      onClick={() => onEdit(transaction.id)}
                       style={{
                         backgroundColor: theme.secondaryBgColor,
                       }}
                     >
-                      <div className={styles.transactionMain}>
-                        <CategoryBadge category={category} />
-                        <div className={styles.transactionInfo}>
-                          <div className={styles.transactionDescription}>
-                            {transaction.description || category?.name || "Без описания"}
-                          </div>
-                          {transaction.currency !== settings.defaultCurrency && (
-                            <div className={styles.transactionCurrency}>
-                              {transaction.currency}
+                      <div
+                        className={styles.transactionContent}
+                        onClick={() => onEdit(transaction.id)}
+                      >
+                        <div className={styles.transactionMain}>
+                          <CategoryBadge category={category} />
+                          <div className={styles.transactionInfo}>
+                            <div className={styles.transactionDescription}>
+                              {transaction.description || category?.name || "Без описания"}
                             </div>
-                          )}
+                            {transaction.currency !== settings.defaultCurrency && (
+                              <div className={styles.transactionCurrency}>
+                                {transaction.currency}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div
+                          className={styles.transactionAmount}
+                          style={{
+                            color:
+                              transaction.type === "income" ? "#4CAF50" : "#F44336",
+                          }}
+                        >
+                          {transaction.type === "income" ? "+" : "-"}
+                          {formatAmount(transaction.amount, transaction.currency)}
                         </div>
                       </div>
-                      <div
-                        className={styles.transactionAmount}
-                        style={{
-                          color:
-                            transaction.type === "income" ? "#4CAF50" : "#F44336",
+                      <button
+                        className={styles.deleteButton}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(transaction.id);
                         }}
+                        style={{
+                          color: theme.hintColor,
+                        }}
+                        title="Удалить транзакцию"
                       >
-                        {transaction.type === "income" ? "+" : "-"}
-                        {formatAmount(transaction.amount, transaction.currency)}
-                      </div>
+                        ×
+                      </button>
                     </div>
                   );
                 })}
