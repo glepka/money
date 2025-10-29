@@ -11,6 +11,10 @@ async function initApp() {
     console.error("Telegram SDK initialization error:", error);
   }
 
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.disableVerticalSwipes();
+  }
+
   createRoot(document.getElementById("root")).render(
     <StrictMode>
       <App />
