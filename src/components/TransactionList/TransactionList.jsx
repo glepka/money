@@ -9,21 +9,15 @@ import { calculateBalance } from "../../utils/calculators";
 import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./TransactionList.module.css";
 
-const TransactionList = ({
-  onAdd,
-  onEdit,
-  onViewCategories,
-  onViewStatistics,
-  onViewBudgets,
-  onViewCurrencies,
-  onViewExport,
-}) => {
+const TransactionList = ({ onAdd, onEdit }) => {
   const theme = useTelegramTheme();
   const transactions = useTransactionStore((state) => state.transactions);
-  const removeTransaction = useTransactionStore((state) => state.removeTransaction);
+  const removeTransaction = useTransactionStore(
+    (state) => state.removeTransaction
+  );
   const categories = useCategoryStore((state) => state.categories);
   const settings = useSettingsStore((state) => state.settings);
-  
+
   const {
     startDate,
     endDate,
@@ -39,13 +33,24 @@ const TransactionList = ({
 
   const [showFilters, setShowFilters] = useState(false);
 
-  const balance = calculateBalance(filteredTransactions, settings.defaultCurrency);
+  const balance = calculateBalance(
+    filteredTransactions,
+    settings.defaultCurrency
+  );
   const income = filteredTransactions
     .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + (t.currency === settings.defaultCurrency ? t.amount : 0), 0);
+    .reduce(
+      (sum, t) =>
+        sum + (t.currency === settings.defaultCurrency ? t.amount : 0),
+      0
+    );
   const expenses = filteredTransactions
     .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + (t.currency === settings.defaultCurrency ? t.amount : 0), 0);
+    .reduce(
+      (sum, t) =>
+        sum + (t.currency === settings.defaultCurrency ? t.amount : 0),
+      0
+    );
 
   const handleDelete = async (id) => {
     if (confirm("Удалить транзакцию?")) {
@@ -53,8 +58,9 @@ const TransactionList = ({
     }
   };
 
-  const filteredCategories = categories.filter((c) => 
-    !c.parentId && filteredTransactions.some((t) => t.categoryId === c.id)
+  const filteredCategories = categories.filter(
+    (c) =>
+      !c.parentId && filteredTransactions.some((t) => t.categoryId === c.id)
   );
 
   const groupedTransactions = filteredTransactions.reduce((acc, t) => {
@@ -199,7 +205,9 @@ const TransactionList = ({
                   {formatDate(date)}
                 </div>
                 {groupedTransactions[date].map((transaction) => {
-                  const category = categories.find((c) => c.id === transaction.categoryId);
+                  const category = categories.find(
+                    (c) => c.id === transaction.categoryId
+                  );
                   return (
                     <div
                       key={transaction.id}
@@ -216,9 +224,12 @@ const TransactionList = ({
                           <CategoryBadge category={category} />
                           <div className={styles.transactionInfo}>
                             <div className={styles.transactionDescription}>
-                              {transaction.description || category?.name || "Без описания"}
+                              {transaction.description ||
+                                category?.name ||
+                                "Без описания"}
                             </div>
-                            {transaction.currency !== settings.defaultCurrency && (
+                            {transaction.currency !==
+                              settings.defaultCurrency && (
                               <div className={styles.transactionCurrency}>
                                 {transaction.currency}
                               </div>
@@ -229,11 +240,16 @@ const TransactionList = ({
                           className={styles.transactionAmount}
                           style={{
                             color:
-                              transaction.type === "income" ? "#4CAF50" : "#F44336",
+                              transaction.type === "income"
+                                ? "#4CAF50"
+                                : "#F44336",
                           }}
                         >
                           {transaction.type === "income" ? "+" : "-"}
-                          {formatAmount(transaction.amount, transaction.currency)}
+                          {formatAmount(
+                            transaction.amount,
+                            transaction.currency
+                          )}
                         </div>
                       </div>
                       <button
@@ -256,23 +272,8 @@ const TransactionList = ({
             ))
         )}
       </div>
-
-      <div
-        className={styles.menu}
-        style={{
-          backgroundColor: theme.secondaryBgColor,
-          borderTop: `1px solid ${theme.hintColor}20`,
-        }}
-      >
-        <button onClick={onViewStatistics}>📊 Статистика</button>
-        <button onClick={onViewBudgets}>💰 Бюджеты</button>
-        <button onClick={onViewCategories}>🏷️ Категории</button>
-        <button onClick={onViewCurrencies}>💱 Валюты</button>
-        <button onClick={onViewExport}>📤 Экспорт</button>
-      </div>
     </div>
   );
 };
 
 export default TransactionList;
-

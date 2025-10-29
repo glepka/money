@@ -7,6 +7,8 @@ import { useBudgetStore } from "./store/budgetsStore";
 import { useSettingsStore } from "./store/settingsStore";
 import { useNotifications } from "./hooks/useNotifications";
 import Header from "./components/Header/Header";
+import FloatingMenu from "./components/FloatingMenu/FloatingMenu";
+import FloatingAddButton from "./components/FloatingAddButton/FloatingAddButton";
 import TransactionList from "./components/TransactionList/TransactionList";
 import TransactionForm from "./components/TransactionForm/TransactionForm";
 import CategoryManager from "./components/CategoryManager/CategoryManager";
@@ -102,11 +104,6 @@ function App() {
           <TransactionList
             onAdd={handleAddTransaction}
             onEdit={handleEditTransaction}
-            onViewCategories={() => setView(VIEWS.CATEGORIES)}
-            onViewStatistics={() => setView(VIEWS.STATISTICS)}
-            onViewBudgets={() => setView(VIEWS.BUDGETS)}
-            onViewCurrencies={() => setView(VIEWS.CURRENCIES)}
-            onViewExport={() => setView(VIEWS.EXPORT)}
           />
         );
     }
@@ -120,12 +117,18 @@ function App() {
         color: theme.textColor,
       }}
     >
-      <Header
-        view={view}
-        onNavigate={setView}
-        onAddTransaction={handleAddTransaction}
-      />
+      <Header view={view} onNavigate={setView} />
       <main className={styles.main}>{renderView()}</main>
+      {view === VIEWS.TRANSACTIONS && (
+        <FloatingAddButton onClick={handleAddTransaction} />
+      )}
+      <FloatingMenu
+        onViewCategories={() => setView(VIEWS.CATEGORIES)}
+        onViewStatistics={() => setView(VIEWS.STATISTICS)}
+        onViewBudgets={() => setView(VIEWS.BUDGETS)}
+        onViewCurrencies={() => setView(VIEWS.CURRENCIES)}
+        onViewExport={() => setView(VIEWS.EXPORT)}
+      />
     </div>
   );
 }

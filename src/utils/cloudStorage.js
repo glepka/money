@@ -3,7 +3,7 @@ import { cloudStorage } from "@telegram-apps/sdk";
 const isSupported = () => {
   try {
     return cloudStorage?.isSupported?.() ?? false;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
@@ -11,7 +11,7 @@ const isSupported = () => {
 const isAvailable = (method) => {
   try {
     return cloudStorage?.[method]?.isAvailable?.() ?? false;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
