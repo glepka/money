@@ -53,7 +53,10 @@ export const useBudgetStore = create((set, get) => ({
   },
 
   getBudgetsByCategory: (categoryId) => {
-    return get().budgets.filter((b) => b.categoryId === categoryId);
+    return get().budgets.filter((b) => {
+      const categoryIds = b.categoryIds || (b.categoryId ? [b.categoryId] : []);
+      return categoryIds.includes(categoryId);
+    });
   },
 }));
 

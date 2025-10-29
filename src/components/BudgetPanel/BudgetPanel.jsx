@@ -6,7 +6,6 @@ import { useSettingsStore } from "../../store/settingsStore";
 import { useTheme } from "../../hooks/useTheme";
 import { formatAmount } from "../../utils/formatters";
 import { calculateBudgetProgress } from "../../utils/calculators";
-import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./BudgetPanel.module.css";
 
 const BudgetPanel = ({ onBack }) => {
@@ -23,7 +22,7 @@ const BudgetPanel = ({ onBack }) => {
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
-    categoryId: "",
+    categoryIds: [],
     amount: "",
     currency: settings.defaultCurrency,
     icon: "💰",
@@ -39,9 +38,12 @@ const BudgetPanel = ({ onBack }) => {
     if (editingId) {
       const budget = budgets.find((b) => b.id === editingId);
       if (budget) {
+        // Поддержка обратной совместимости
+        const categoryIds =
+          budget.categoryIds || (budget.categoryId ? [budget.categoryId] : []);
         setFormData({
           name: budget.name,
-          categoryId: budget.categoryId || "",
+          categoryIds: categoryIds,
           amount: budget.amount.toString(),
           currency: budget.currency || settings.defaultCurrency,
           icon: budget.icon || "💰",
@@ -64,7 +66,8 @@ const BudgetPanel = ({ onBack }) => {
 
     const budgetData = {
       name: formData.name,
-      categoryId: formData.categoryId || null,
+      categoryIds:
+        formData.categoryIds.length > 0 ? formData.categoryIds : null,
       amount: parseFloat(formData.amount),
       currency: formData.currency,
       icon: formData.icon || "💰",
@@ -82,7 +85,7 @@ const BudgetPanel = ({ onBack }) => {
     setEditingId(null);
     setFormData({
       name: "",
-      categoryId: "",
+      categoryIds: [],
       amount: "",
       currency: settings.defaultCurrency,
       icon: "💰",
@@ -193,23 +196,102 @@ const BudgetPanel = ({ onBack }) => {
               ))}
             </div>
           </div>
-          <select
-            value={formData.categoryId}
-            onChange={(e) =>
-              setFormData({ ...formData, categoryId: e.target.value })
-            }
-            style={{
-              backgroundColor: theme.bgColor,
-              color: theme.textColor,
-            }}
-          >
-            <option value="">Все категории</option>
-            {expenseCategories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.icon} {cat.name}
-              </option>
-            ))}
-          </select>
+          <div className={styles.categorySelector}>
+            <label
+              style={{
+                fontSize: "14px",
+                opacity: 0.8,
+                marginBottom: "8px",
+                display: "block",
+                color: theme.textColor,
+              }}
+            >
+              Категории и подкатегории (можно выбрать несколько)
+            </label>
+            <div
+              className={styles.categoryList}
+              style={{
+                backgroundColor: theme.bgColor,
+                borderColor: theme.hintColor + "30",
+                color: theme.textColor,
+              }}
+            >
+              {expenseCategories
+                .filter((cat) => !cat.parentId)
+                .map((cat) => {
+                  const subcategories = expenseCategories.filter(
+                    (c) => c.parentId === cat.id
+                  );
+                  return (
+                    <div key={cat.id} className={styles.categoryGroup}>
+                      <label className={styles.categoryItem}>
+                        <input
+                          type="checkbox"
+                          checked={formData.categoryIds.includes(cat.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setFormData({
+                                ...formData,
+                                categoryIds: [...formData.categoryIds, cat.id],
+                              });
+                            } else {
+                              setFormData({
+                                ...formData,
+                                categoryIds: formData.categoryIds.filter(
+                                  (id) => id !== cat.id
+                                ),
+                              });
+                            }
+                          }}
+                          style={{
+                            marginRight: "8px",
+                          }}
+                        />
+                        <span>{cat.name}</span>
+                      </label>
+                      {subcategories.length > 0 && (
+                        <div className={styles.subcategoryGroup}>
+                          {subcategories.map((sub) => (
+                            <label
+                              key={sub.id}
+                              className={styles.categoryItem}
+                              style={{ marginLeft: "20px" }}
+                            >
+                              <input
+                                type="checkbox"
+                                checked={formData.categoryIds.includes(sub.id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setFormData({
+                                      ...formData,
+                                      categoryIds: [
+                                        ...formData.categoryIds,
+                                        sub.id,
+                                      ],
+                                    });
+                                  } else {
+                                    setFormData({
+                                      ...formData,
+                                      categoryIds: formData.categoryIds.filter(
+                                        (id) => id !== sub.id
+                                      ),
+                                    });
+                                  }
+                                }}
+                                style={{
+                                  marginRight: "8px",
+                                }}
+                              />
+                              <span>{sub.name}</span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
           <div className={styles.amountInput}>
             <input
               type="number"
@@ -293,9 +375,6 @@ const BudgetPanel = ({ onBack }) => {
           </div>
         ) : (
           budgets.map((budget) => {
-            const category = budget.categoryId
-              ? categories.find((c) => c.id === budget.categoryId)
-              : null;
             const progress = calculateBudgetProgress(
               budget,
               transactions,
@@ -316,19 +395,13 @@ const BudgetPanel = ({ onBack }) => {
                     <div
                       className={styles.budgetIcon}
                       style={{
-                        backgroundColor: category?.color || "#999999",
+                        backgroundColor: "#999999",
                       }}
                     >
                       {budget.icon || "💰"}
                     </div>
-                    {category && <CategoryBadge category={category} />}
                     <div>
                       <div className={styles.budgetName}>{budget.name}</div>
-                      {category && (
-                        <div className={styles.budgetCategory}>
-                          {category.name}
-                        </div>
-                      )}
                     </div>
                   </div>
                   <div className={styles.budgetActions}>

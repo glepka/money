@@ -1,5 +1,4 @@
 import { useBudgetStore } from "../../store/budgetsStore";
-import { useCategoryStore } from "../../store/categoriesStore";
 import { useTransactionStore } from "../../store/transactionsStore";
 import { useSettingsStore } from "../../store/settingsStore";
 import { useTheme } from "../../hooks/useTheme";
@@ -8,13 +7,11 @@ import {
   calculateBudgetProgress,
   calculateBalance,
 } from "../../utils/calculators";
-import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./BudgetList.module.css";
 
 const BudgetList = ({ onAdd }) => {
   const theme = useTheme();
   const budgets = useBudgetStore((state) => state.budgets);
-  const categories = useCategoryStore((state) => state.categories);
   const transactions = useTransactionStore((state) => state.transactions);
   const settings = useSettingsStore((state) => state.settings);
 
@@ -104,10 +101,6 @@ const BudgetList = ({ onAdd }) => {
       </div>
       <div className={styles.budgets}>
         {budgets.map((budget) => {
-          const category = budget.categoryId
-            ? categories.find((c) => c.id === budget.categoryId)
-            : null;
-
           const progress = calculateBudgetProgress(
             budget,
             transactions,
@@ -128,19 +121,13 @@ const BudgetList = ({ onAdd }) => {
                   <div
                     className={styles.budgetIcon}
                     style={{
-                      backgroundColor: category?.color || "#999999",
+                      backgroundColor: "#999999",
                     }}
                   >
                     {budget.icon || "💰"}
                   </div>
-                  {category && <CategoryBadge category={category} />}
                   <div>
                     <div className={styles.budgetName}>{budget.name}</div>
-                    {category && (
-                      <div className={styles.budgetCategory}>
-                        {category.name}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

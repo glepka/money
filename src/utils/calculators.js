@@ -55,8 +55,11 @@ export const calculateBudgetProgress = (budget, transactions, startDate, endDate
     return date >= start && date <= end && t.type === "expense";
   });
   
-  if (budget.categoryId) {
-    filtered = filtered.filter((t) => t.categoryId === budget.categoryId);
+  // Поддержка обратной совместимости: если categoryId, преобразуем в массив
+  const categoryIds = budget.categoryIds || (budget.categoryId ? [budget.categoryId] : []);
+  
+  if (categoryIds.length > 0) {
+    filtered = filtered.filter((t) => categoryIds.includes(t.categoryId));
   }
   
   if (budget.currency) {
