@@ -74,6 +74,11 @@ export const DEFAULT_CURRENCIES = [
 
 export const DEFAULT_SETTINGS = {
   defaultCurrency: "RUB",
+  initialBalance: {
+    RUB: 0,
+    USD: 0,
+    EUR: 0,
+  },
   notifications: {
     budgetWarning: true,
     budgetExceeded: true,

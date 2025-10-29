@@ -1,4 +1,8 @@
-export const calculateBalance = (transactions, currency = "RUB") => {
+export const calculateBalance = (
+  transactions,
+  currency = "RUB",
+  initialBalance = 0
+) => {
   const filtered = transactions.filter((t) => t.currency === currency);
   const income = filtered
     .filter((t) => t.type === "income")
@@ -6,7 +10,7 @@ export const calculateBalance = (transactions, currency = "RUB") => {
   const expenses = filtered
     .filter((t) => t.type === "expense")
     .reduce((sum, t) => sum + t.amount, 0);
-  return income - expenses;
+  return initialBalance + income - expenses;
 };
 
 export const calculateByPeriod = (transactions, startDate, endDate) => {
@@ -121,29 +125,73 @@ export const calculateBudgetProgress = (
   startDate,
   endDate
 ) => {
+  // Проверка входных данных
+  if (!budget || !transactions || !Array.isArray(transactions)) {
+    return {
+      spent: 0,
+      limit: budget?.amount || 0,
+      remaining: budget?.amount || 0,
+      percentage: 0,
+      exceeded: false,
+    };
+  }
+
   const start = new Date(startDate);
   const end = new Date(endDate);
   end.setHours(23, 59, 59, 999);
 
+  // Фильтруем транзакции: только расходы (expense) в заданном периоде
+  // и только валидные транзакции с необходимыми полями
   let filtered = transactions.filter((t) => {
+    // Проверка валидности транзакции
+    if (!t || typeof t !== "object" || !t.date || !t.type) {
+      return false;
+    }
+
+    // Только расходы
+    if (t.type !== "expense") {
+      return false;
+    }
+
+    // Проверка даты
     const date = new Date(t.date);
-    return date >= start && date <= end && t.type === "expense";
+    if (isNaN(date.getTime())) {
+      return false;
+    }
+
+    return date >= start && date <= end;
   });
 
   // Поддержка обратной совместимости: если categoryId, преобразуем в массив
   const categoryIds =
     budget.categoryIds || (budget.categoryId ? [budget.categoryId] : []);
 
-  if (categoryIds.length > 0) {
-    filtered = filtered.filter((t) => categoryIds.includes(t.categoryId));
+  // Фильтрация по категориям, если они указаны
+  if (categoryIds && categoryIds.length > 0) {
+    filtered = filtered.filter((t) => {
+      // Проверяем, что у транзакции есть categoryId и он входит в список
+      return t.categoryId && categoryIds.includes(t.categoryId);
+    });
   }
 
+  // Фильтрация по валюте, если указана
   if (budget.currency) {
-    filtered = filtered.filter((t) => t.currency === budget.currency);
+    filtered = filtered.filter((t) => {
+      return t.currency === budget.currency;
+    });
   }
 
-  const spent = filtered.reduce((sum, t) => sum + t.amount, 0);
-  const limit = budget.amount;
+  // Суммируем потраченные средства, проверяя, что amount является числом
+  const spent = filtered.reduce((sum, t) => {
+    const amount =
+      typeof t.amount === "number" && !isNaN(t.amount) ? t.amount : 0;
+    return sum + amount;
+  }, 0);
+
+  const limit =
+    typeof budget.amount === "number" && !isNaN(budget.amount)
+      ? budget.amount
+      : 0;
   const percentage = limit > 0 ? (spent / limit) * 100 : 0;
   const remaining = limit - spent;
 

@@ -57,6 +57,22 @@
   font-weight: bold;
 }
 
+.balanceEdit {
+  display: flex;
+  align-items: center;
+}
+
+.balanceInput {
+  font-size: 24px;
+  font-weight: bold;
+  border: 2px solid;
+  border-radius: 4px;
+  padding: 4px 8px;
+  width: 150px;
+  outline: none;
+  font-family: inherit;
+}
+
 .menuOverlay {
   position: fixed;
   top: 0;

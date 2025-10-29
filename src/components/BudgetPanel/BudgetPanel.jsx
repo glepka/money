@@ -18,7 +18,8 @@ const BudgetPanel = () => {
   const updateBudget = useBudgetStore((state) => state.updateBudget);
   const removeBudget = useBudgetStore((state) => state.removeBudget);
   const categories = useCategoryStore((state) => state.categories);
-  const transactions = useTransactionStore((state) => state.transactions);
+  const transactionsRaw = useTransactionStore((state) => state.transactions);
+  const transactions = Array.isArray(transactionsRaw) ? transactionsRaw : [];
   const settings = useSettingsStore((state) => state.settings);
 
   const [showForm, setShowForm] = useState(false);

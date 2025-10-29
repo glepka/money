@@ -16,7 +16,13 @@ const BudgetList = ({ onAdd }) => {
   const transactions = useTransactionStore((state) => state.transactions);
   const settings = useSettingsStore((state) => state.settings);
 
-  const balance = calculateBalance(transactions, settings.defaultCurrency);
+  const initialBalance =
+    settings.initialBalance?.[settings.defaultCurrency] || 0;
+  const balance = calculateBalance(
+    transactions,
+    settings.defaultCurrency,
+    initialBalance
+  );
   const income = transactions
     .filter((t) => t.type === "income")
     .reduce(
