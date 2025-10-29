@@ -1,0 +1,73 @@
+.container {
+  padding: 16px;
+  padding-bottom: 80px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.info {
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.info p {
+  margin-bottom: 16px;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+}
+
+.statLabel {
+  opacity: 0.7;
+}
+
+.statValue {
+  font-weight: 600;
+}
+
+.exportOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.exportButton {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.exportButton:active {
+  opacity: 0.7;
+}
+
+.exportDescription {
+  font-size: 14px;
+  opacity: 0.7;
+  line-height: 1.5;
+  margin-top: -16px;
+}
+

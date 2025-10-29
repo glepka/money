@@ -1,0 +1,225 @@
+.container {
+  padding-bottom: 80px;
+}
+
+.summary {
+  padding: 16px;
+  margin: 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.summaryLabel {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.summaryAmount {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filters {
+  margin: 0 16px 16px;
+}
+
+.filterToggle {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.filterPanel {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.periodButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.periodButtons button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.periodButtons button:hover {
+  opacity: 1;
+}
+
+.dateInputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dateInputs input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.typeFilter {
+  display: flex;
+  gap: 8px;
+}
+
+.typeFilter button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.typeFilter button.active {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.filterPanel select {
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.transactions {
+  padding: 0 16px;
+}
+
+.dateGroup {
+  margin-bottom: 24px;
+}
+
+.dateHeader {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.transaction:active {
+  opacity: 0.7;
+}
+
+.transactionMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.transactionInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.transactionDescription {
+  font-size: 16px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transactionCurrency {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+.transactionAmount {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 48px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.empty p {
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.empty button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  z-index: 50;
+}
+
+.menu button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.menu button:active {
+  opacity: 1;
+}
+
