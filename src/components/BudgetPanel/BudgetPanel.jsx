@@ -3,14 +3,14 @@ import { useBudgetStore } from "../../store/budgetsStore";
 import { useCategoryStore } from "../../store/categoriesStore";
 import { useTransactionStore } from "../../store/transactionsStore";
 import { useSettingsStore } from "../../store/settingsStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import { formatAmount } from "../../utils/formatters";
 import { calculateBudgetProgress } from "../../utils/calculators";
 import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./BudgetPanel.module.css";
 
 const BudgetPanel = ({ onBack }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const budgets = useBudgetStore((state) => state.budgets);
   const addBudget = useBudgetStore((state) => state.addBudget);
   const updateBudget = useBudgetStore((state) => state.updateBudget);
@@ -52,7 +52,11 @@ const BudgetPanel = ({ onBack }) => {
   }, [editingId, budgets, settings.defaultCurrency]);
 
   const handleSave = async () => {
-    if (!formData.name || !formData.amount || parseFloat(formData.amount) <= 0) {
+    if (
+      !formData.name ||
+      !formData.amount ||
+      parseFloat(formData.amount) <= 0
+    ) {
       return;
     }
 
@@ -133,7 +137,9 @@ const BudgetPanel = ({ onBack }) => {
           />
           <select
             value={formData.categoryId}
-            onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, categoryId: e.target.value })
+            }
             style={{
               backgroundColor: theme.bgColor,
               color: theme.textColor,
@@ -153,7 +159,9 @@ const BudgetPanel = ({ onBack }) => {
               min="0"
               placeholder="Сумма"
               value={formData.amount}
-              onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, amount: e.target.value })
+              }
               style={{
                 backgroundColor: theme.bgColor,
                 color: theme.textColor,
@@ -161,7 +169,9 @@ const BudgetPanel = ({ onBack }) => {
             />
             <select
               value={formData.currency}
-              onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, currency: e.target.value })
+              }
               style={{
                 backgroundColor: theme.bgColor,
                 color: theme.textColor,
@@ -176,7 +186,9 @@ const BudgetPanel = ({ onBack }) => {
             type="date"
             label="Начало периода"
             value={formData.periodStart}
-            onChange={(e) => setFormData({ ...formData, periodStart: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, periodStart: e.target.value })
+            }
             style={{
               backgroundColor: theme.bgColor,
               color: theme.textColor,
@@ -186,7 +198,9 @@ const BudgetPanel = ({ onBack }) => {
             type="date"
             label="Конец периода"
             value={formData.periodEnd}
-            onChange={(e) => setFormData({ ...formData, periodEnd: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, periodEnd: e.target.value })
+            }
             style={{
               backgroundColor: theme.bgColor,
               color: theme.textColor,
@@ -245,7 +259,9 @@ const BudgetPanel = ({ onBack }) => {
                     <div>
                       <div className={styles.budgetName}>{budget.name}</div>
                       {category && (
-                        <div className={styles.budgetCategory}>{category.name}</div>
+                        <div className={styles.budgetCategory}>
+                          {category.name}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -298,7 +314,10 @@ const BudgetPanel = ({ onBack }) => {
                       }}
                     >
                       {progress.remaining >= 0 ? "Осталось" : "Превышено"}:{" "}
-                      {formatAmount(Math.abs(progress.remaining), budget.currency)}
+                      {formatAmount(
+                        Math.abs(progress.remaining),
+                        budget.currency
+                      )}
                     </span>
                   </div>
                 </div>
@@ -312,4 +331,3 @@ const BudgetPanel = ({ onBack }) => {
 };
 
 export default BudgetPanel;
-

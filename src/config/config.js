@@ -4,6 +4,7 @@ export const STORAGE_KEYS = {
   CURRENCIES: "currencies",
   BUDGETS: "budgets",
   SETTINGS: "settings",
+  THEME: "theme",
 };
 
 export const DEFAULT_CATEGORIES = [
@@ -79,4 +80,3 @@ export const DEFAULT_SETTINGS = {
     reminders: false,
   },
 };
-

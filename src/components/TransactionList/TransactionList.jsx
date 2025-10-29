@@ -3,13 +3,13 @@ import { useTransactionStore } from "../../store/transactionsStore";
 import { useCategoryStore } from "../../store/categoriesStore";
 import { useSettingsStore } from "../../store/settingsStore";
 import { usePeriodFilter } from "../../hooks/usePeriodFilter";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import { formatDate, formatAmount } from "../../utils/formatters";
 import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./TransactionList.module.css";
 
 const TransactionList = ({ onAdd, onEdit }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const transactions = useTransactionStore((state) => state.transactions);
   const removeTransaction = useTransactionStore(
     (state) => state.removeTransaction

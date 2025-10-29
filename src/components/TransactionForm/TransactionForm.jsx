@@ -3,11 +3,11 @@ import { useTransactionStore } from "../../store/transactionsStore";
 import { useCategoryStore } from "../../store/categoriesStore";
 import { useCurrencyStore } from "../../store/currenciesStore";
 import { useSettingsStore } from "../../store/settingsStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./TransactionForm.module.css";
 
 const TransactionForm = ({ transactionId, onSave, onCancel }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const getTransaction = useTransactionStore(
     (state) => state.getTransactionById
   );

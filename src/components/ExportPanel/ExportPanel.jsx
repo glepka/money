@@ -3,12 +3,12 @@ import { useCategoryStore } from "../../store/categoriesStore";
 import { useBudgetStore } from "../../store/budgetsStore";
 import { useCurrencyStore } from "../../store/currenciesStore";
 import { useSettingsStore } from "../../store/settingsStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import { exportToJSON, exportToCSV } from "../../utils/exporters";
 import styles from "./ExportPanel.module.css";
 
 const ExportPanel = ({ onBack }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const transactions = useTransactionStore((state) => state.transactions);
   const categories = useCategoryStore((state) => state.categories);
   const budgets = useBudgetStore((state) => state.budgets);
@@ -43,7 +43,9 @@ const ExportPanel = ({ onBack }) => {
           backgroundColor: theme.secondaryBgColor,
         }}
       >
-        <p>Экспортируйте все ваши данные для резервного копирования или анализа.</p>
+        <p>
+          Экспортируйте все ваши данные для резервного копирования или анализа.
+        </p>
         <div className={styles.stats}>
           <div className={styles.stat}>
             <span className={styles.statLabel}>Транзакций:</span>
@@ -72,7 +74,8 @@ const ExportPanel = ({ onBack }) => {
           📄 Экспорт JSON
         </button>
         <p className={styles.exportDescription}>
-          Полный экспорт всех данных в формате JSON (транзакции, категории, бюджеты, настройки)
+          Полный экспорт всех данных в формате JSON (транзакции, категории,
+          бюджеты, настройки)
         </p>
 
         <button
@@ -86,7 +89,8 @@ const ExportPanel = ({ onBack }) => {
           📊 Экспорт CSV
         </button>
         <p className={styles.exportDescription}>
-          Экспорт транзакций в формате CSV для работы в Excel или других табличных редакторах
+          Экспорт транзакций в формате CSV для работы в Excel или других
+          табличных редакторах
         </p>
       </div>
     </div>
@@ -94,4 +98,3 @@ const ExportPanel = ({ onBack }) => {
 };
 
 export default ExportPanel;
-

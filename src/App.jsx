@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useTelegramTheme } from "./hooks/useTelegramTheme";
+import { useTheme } from "./hooks/useTheme";
 import { useTransactionStore } from "./store/transactionsStore";
 import { useCategoryStore } from "./store/categoriesStore";
 import { useCurrencyStore } from "./store/currenciesStore";
 import { useBudgetStore } from "./store/budgetsStore";
 import { useSettingsStore } from "./store/settingsStore";
+import { useThemeStore } from "./store/themeStore";
 import { useNotifications } from "./hooks/useNotifications";
 import Header from "./components/Header/Header";
 import FloatingMenu from "./components/FloatingMenu/FloatingMenu";
@@ -31,7 +32,7 @@ const VIEWS = {
 };
 
 function App() {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const [view, setView] = useState(null);
   const [editingTransactionId, setEditingTransactionId] = useState(null);
 
@@ -42,6 +43,7 @@ function App() {
   const loadCurrencies = useCurrencyStore((state) => state.loadCurrencies);
   const loadBudgets = useBudgetStore((state) => state.loadBudgets);
   const loadSettings = useSettingsStore((state) => state.loadSettings);
+  const loadTheme = useThemeStore((state) => state.loadTheme);
 
   useEffect(() => {
     const initialize = async () => {
@@ -51,6 +53,7 @@ function App() {
         loadCurrencies(),
         loadBudgets(),
         loadSettings(),
+        loadTheme(),
       ]);
     };
     initialize();
@@ -60,6 +63,7 @@ function App() {
     loadCurrencies,
     loadBudgets,
     loadSettings,
+    loadTheme,
   ]);
 
   useNotifications();

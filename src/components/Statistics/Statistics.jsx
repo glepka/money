@@ -3,13 +3,13 @@ import { useTransactionStore } from "../../store/transactionsStore";
 import { useCategoryStore } from "../../store/categoriesStore";
 import { useSettingsStore } from "../../store/settingsStore";
 import { usePeriodFilter } from "../../hooks/usePeriodFilter";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import { formatAmount, getPeriodLabel } from "../../utils/formatters";
 import { calculateByPeriod, groupByMonth } from "../../utils/calculators";
 import styles from "./Statistics.module.css";
 
 const Statistics = ({ onBack }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const transactions = useTransactionStore((state) => state.transactions);
   const categories = useCategoryStore((state) => state.categories);
   const settings = useSettingsStore((state) => state.settings);
@@ -23,12 +23,18 @@ const Statistics = ({ onBack }) => {
     setPeriod,
   } = usePeriodFilter(transactions);
 
-  const periodData = calculateByPeriod(filteredTransactions, startDate, endDate);
+  const periodData = calculateByPeriod(
+    filteredTransactions,
+    startDate,
+    endDate
+  );
   const monthlyData = groupByMonth(filteredTransactions);
 
   const categoryStats = categories
     .map((cat) => {
-      const catTransactions = filteredTransactions.filter((t) => t.categoryId === cat.id);
+      const catTransactions = filteredTransactions.filter(
+        (t) => t.categoryId === cat.id
+      );
       const total = catTransactions.reduce((sum, t) => {
         if (t.type === "expense") {
           return sum - (t.currency === settings.defaultCurrency ? t.amount : 0);
@@ -120,7 +126,10 @@ const Statistics = ({ onBack }) => {
             className={styles.summaryAmount}
             style={{ color: periodData.balance >= 0 ? "#4CAF50" : "#F44336" }}
           >
-            {formatAmount(Math.abs(periodData.balance), settings.defaultCurrency)}
+            {formatAmount(
+              Math.abs(periodData.balance),
+              settings.defaultCurrency
+            )}
           </div>
         </div>
       </div>
@@ -178,8 +187,18 @@ const Statistics = ({ onBack }) => {
               const monthData = monthlyData[monthKey];
               const [year, month] = monthKey.split("-");
               const monthNames = [
-                "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь",
+                "Январь",
+                "Февраль",
+                "Март",
+                "Апрель",
+                "Май",
+                "Июнь",
+                "Июль",
+                "Август",
+                "Сентябрь",
+                "Октябрь",
+                "Ноябрь",
+                "Декабрь",
               ];
               const monthName = monthNames[parseInt(month) - 1];
               return (
@@ -195,14 +214,22 @@ const Statistics = ({ onBack }) => {
                   </div>
                   <div className={styles.monthValues}>
                     <div style={{ color: "#4CAF50" }}>
-                      +{formatAmount(monthData.income, settings.defaultCurrency)}
+                      +
+                      {formatAmount(monthData.income, settings.defaultCurrency)}
                     </div>
                     <div style={{ color: "#F44336" }}>
-                      -{formatAmount(monthData.expenses, settings.defaultCurrency)}
+                      -
+                      {formatAmount(
+                        monthData.expenses,
+                        settings.defaultCurrency
+                      )}
                     </div>
                     <div
                       style={{
-                        color: monthData.income - monthData.expenses >= 0 ? "#4CAF50" : "#F44336",
+                        color:
+                          monthData.income - monthData.expenses >= 0
+                            ? "#4CAF50"
+                            : "#F44336",
                       }}
                     >
                       {formatAmount(
@@ -221,4 +248,3 @@ const Statistics = ({ onBack }) => {
 };
 
 export default Statistics;
-

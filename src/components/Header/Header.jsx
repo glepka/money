@@ -1,12 +1,12 @@
 import { useTransactionStore } from "../../store/transactionsStore";
 import { useSettingsStore } from "../../store/settingsStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import { calculateBalance } from "../../utils/calculators";
 import { formatAmount } from "../../utils/formatters";
 import styles from "./Header.module.css";
 
 const Header = ({ view, onNavigate }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const transactions = useTransactionStore((state) => state.transactions);
   const settings = useSettingsStore((state) => state.settings);
   const balance = calculateBalance(transactions, settings.defaultCurrency);

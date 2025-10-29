@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import styles from "./FloatingMenu.module.css";
 
 const FloatingMenu = ({
@@ -10,7 +11,7 @@ const FloatingMenu = ({
   onViewCurrencies,
   onViewExport,
 }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -103,6 +104,15 @@ const FloatingMenu = ({
             >
               📤 Экспорт
             </button>
+            <div
+              style={{
+                borderTop: `1px solid ${theme.hintColor}20`,
+                marginTop: "8px",
+                paddingTop: "8px",
+              }}
+            >
+              <ThemeToggle />
+            </div>
           </div>
         </>
       )}
@@ -111,4 +121,3 @@ const FloatingMenu = ({
 };
 
 export default FloatingMenu;
-

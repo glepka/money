@@ -2,7 +2,7 @@ import { useBudgetStore } from "../../store/budgetsStore";
 import { useCategoryStore } from "../../store/categoriesStore";
 import { useTransactionStore } from "../../store/transactionsStore";
 import { useSettingsStore } from "../../store/settingsStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import { formatAmount } from "../../utils/formatters";
 import {
   calculateBudgetProgress,
@@ -12,7 +12,7 @@ import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./BudgetList.module.css";
 
 const BudgetList = ({ onAdd }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const budgets = useBudgetStore((state) => state.budgets);
   const categories = useCategoryStore((state) => state.categories);
   const transactions = useTransactionStore((state) => state.transactions);

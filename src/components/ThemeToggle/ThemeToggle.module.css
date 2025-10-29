@@ -1,0 +1,43 @@
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  gap: 16px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.toggle {
+  position: relative;
+  width: 52px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background-color: #ccc;
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle:active .slider {
+  transform: scale(0.95);
+}

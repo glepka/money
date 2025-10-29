@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useCategoryStore } from "../../store/categoriesStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./CategoryManager.module.css";
 
 const CategoryManager = ({ onBack }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const categories = useCategoryStore((state) => state.categories);
   const addCategory = useCategoryStore((state) => state.addCategory);
   const updateCategory = useCategoryStore((state) => state.updateCategory);

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { useCurrencyStore } from "../../store/currenciesStore";
 import { useSettingsStore } from "../../store/settingsStore";
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./CurrencySettings.module.css";
 
 const CurrencySettings = ({ onBack }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
   const currencies = useCurrencyStore((state) => state.currencies);
   const settings = useSettingsStore((state) => state.settings);
   const updateSettings = useSettingsStore((state) => state.updateSettings);
@@ -33,8 +32,14 @@ const CurrencySettings = ({ onBack }) => {
               key={currency.code}
               className={styles.currencyItem}
               style={{
-                backgroundColor: settings.defaultCurrency === currency.code ? theme.buttonColor : "transparent",
-                color: settings.defaultCurrency === currency.code ? theme.buttonTextColor : theme.textColor,
+                backgroundColor:
+                  settings.defaultCurrency === currency.code
+                    ? theme.buttonColor
+                    : "transparent",
+                color:
+                  settings.defaultCurrency === currency.code
+                    ? theme.buttonTextColor
+                    : theme.textColor,
               }}
             >
               <input
@@ -56,4 +61,3 @@ const CurrencySettings = ({ onBack }) => {
 };
 
 export default CurrencySettings;
-

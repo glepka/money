@@ -1,8 +1,8 @@
-import { useTelegramTheme } from "../../hooks/useTelegramTheme";
+import { useTheme } from "../../hooks/useTheme";
 import styles from "./FloatingAddButton.module.css";
 
 const FloatingAddButton = ({ onClick }) => {
-  const theme = useTelegramTheme();
+  const theme = useTheme();
 
   return (
     <button
@@ -20,4 +20,3 @@ const FloatingAddButton = ({ onClick }) => {
 };
 
 export default FloatingAddButton;
-
