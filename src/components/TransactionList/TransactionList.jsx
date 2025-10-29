@@ -5,7 +5,6 @@ import { useSettingsStore } from "../../store/settingsStore";
 import { usePeriodFilter } from "../../hooks/usePeriodFilter";
 import { useTelegramTheme } from "../../hooks/useTelegramTheme";
 import { formatDate, formatAmount } from "../../utils/formatters";
-import { calculateBalance } from "../../utils/calculators";
 import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
 import styles from "./TransactionList.module.css";
 
@@ -33,25 +32,6 @@ const TransactionList = ({ onAdd, onEdit }) => {
 
   const [showFilters, setShowFilters] = useState(false);
 
-  const balance = calculateBalance(
-    filteredTransactions,
-    settings.defaultCurrency
-  );
-  const income = filteredTransactions
-    .filter((t) => t.type === "income")
-    .reduce(
-      (sum, t) =>
-        sum + (t.currency === settings.defaultCurrency ? t.amount : 0),
-      0
-    );
-  const expenses = filteredTransactions
-    .filter((t) => t.type === "expense")
-    .reduce(
-      (sum, t) =>
-        sum + (t.currency === settings.defaultCurrency ? t.amount : 0),
-      0
-    );
-
   const handleDelete = async (id) => {
     if (confirm("Удалить транзакцию?")) {
       await removeTransaction(id);
@@ -74,35 +54,6 @@ const TransactionList = ({ onAdd, onEdit }) => {
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.summary}
-        style={{
-          backgroundColor: theme.secondaryBgColor,
-        }}
-      >
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>Доходы</span>
-          <span className={styles.summaryAmount} style={{ color: "#4CAF50" }}>
-            {formatAmount(income, settings.defaultCurrency)}
-          </span>
-        </div>
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>Расходы</span>
-          <span className={styles.summaryAmount} style={{ color: "#F44336" }}>
-            {formatAmount(expenses, settings.defaultCurrency)}
-          </span>
-        </div>
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryLabel}>Баланс</span>
-          <span
-            className={styles.summaryAmount}
-            style={{ color: balance >= 0 ? "#4CAF50" : "#F44336" }}
-          >
-            {formatAmount(Math.abs(balance), settings.defaultCurrency)}
-          </span>
-        </div>
-      </div>
-
       <div className={styles.filters}>
         <button
           onClick={() => setShowFilters(!showFilters)}

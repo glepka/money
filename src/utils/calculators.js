@@ -46,8 +46,24 @@ export const calculateByCategory = (transactions, categoryId) => {
 };
 
 export const calculateBudgetProgress = (budget, transactions, startDate, endDate) => {
-  const periodData = calculateByPeriod(transactions, startDate, endDate);
-  const spent = periodData.expenses;
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  end.setHours(23, 59, 59, 999);
+  
+  let filtered = transactions.filter((t) => {
+    const date = new Date(t.date);
+    return date >= start && date <= end && t.type === "expense";
+  });
+  
+  if (budget.categoryId) {
+    filtered = filtered.filter((t) => t.categoryId === budget.categoryId);
+  }
+  
+  if (budget.currency) {
+    filtered = filtered.filter((t) => t.currency === budget.currency);
+  }
+  
+  const spent = filtered.reduce((sum, t) => sum + t.amount, 0);
   const limit = budget.amount;
   const percentage = limit > 0 ? (spent / limit) * 100 : 0;
   const remaining = limit - spent;

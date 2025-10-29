@@ -3,6 +3,7 @@ import { useTelegramTheme } from "../../hooks/useTelegramTheme";
 import styles from "./FloatingMenu.module.css";
 
 const FloatingMenu = ({
+  onViewTransactions,
   onViewCategories,
   onViewStatistics,
   onViewBudgets,
@@ -48,6 +49,15 @@ const FloatingMenu = ({
               borderBottom: `1px solid ${theme.hintColor}20`,
             }}
           >
+            <button
+              className={styles.menuItem}
+              onClick={() => handleMenuItemClick(onViewTransactions)}
+              style={{
+                color: theme.textColor,
+              }}
+            >
+              📋 Транзакции
+            </button>
             <button
               className={styles.menuItem}
               onClick={() => handleMenuItemClick(onViewStatistics)}

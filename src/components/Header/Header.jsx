@@ -11,7 +11,7 @@ const Header = ({ view, onNavigate }) => {
   const settings = useSettingsStore((state) => state.settings);
   const balance = calculateBalance(transactions, settings.defaultCurrency);
 
-  const isMainView = view === "transactions";
+  const isMainView = view === null;
 
   return (
     <>
@@ -26,7 +26,7 @@ const Header = ({ view, onNavigate }) => {
           {!isMainView && (
             <button
               className={styles.backButton}
-              onClick={() => onNavigate("transactions")}
+              onClick={() => onNavigate(null)}
               style={{
                 color: theme.linkColor,
               }}

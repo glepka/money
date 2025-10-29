@@ -1,5 +1,5 @@
 .container {
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .summary {
@@ -230,4 +230,3 @@
   font-weight: 500;
   cursor: pointer;
 }
-

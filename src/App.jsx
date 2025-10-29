@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import FloatingMenu from "./components/FloatingMenu/FloatingMenu";
 import FloatingAddButton from "./components/FloatingAddButton/FloatingAddButton";
 import TransactionList from "./components/TransactionList/TransactionList";
+import BudgetList from "./components/BudgetList/BudgetList";
 import TransactionForm from "./components/TransactionForm/TransactionForm";
 import CategoryManager from "./components/CategoryManager/CategoryManager";
 import Statistics from "./components/Statistics/Statistics";
@@ -31,7 +32,7 @@ const VIEWS = {
 
 function App() {
   const theme = useTelegramTheme();
-  const [view, setView] = useState(VIEWS.TRANSACTIONS);
+  const [view, setView] = useState(null);
   const [editingTransactionId, setEditingTransactionId] = useState(null);
 
   const loadTransactions = useTransactionStore(
@@ -74,7 +75,7 @@ function App() {
   };
 
   const handleBack = () => {
-    setView(VIEWS.TRANSACTIONS);
+    setView(null);
     setEditingTransactionId(null);
   };
 
@@ -89,6 +90,13 @@ function App() {
             onCancel={handleBack}
           />
         );
+      case VIEWS.TRANSACTIONS:
+        return (
+          <TransactionList
+            onAdd={handleAddTransaction}
+            onEdit={handleEditTransaction}
+          />
+        );
       case VIEWS.CATEGORIES:
         return <CategoryManager onBack={handleBack} />;
       case VIEWS.STATISTICS:
@@ -100,12 +108,7 @@ function App() {
       case VIEWS.EXPORT:
         return <ExportPanel onBack={handleBack} />;
       default:
-        return (
-          <TransactionList
-            onAdd={handleAddTransaction}
-            onEdit={handleEditTransaction}
-          />
-        );
+        return <BudgetList onAdd={handleAddTransaction} />;
     }
   };
 
@@ -119,10 +122,11 @@ function App() {
     >
       <Header view={view} onNavigate={setView} />
       <main className={styles.main}>{renderView()}</main>
-      {view === VIEWS.TRANSACTIONS && (
+      {(view === null || view === VIEWS.TRANSACTIONS) && (
         <FloatingAddButton onClick={handleAddTransaction} />
       )}
       <FloatingMenu
+        onViewTransactions={() => setView(VIEWS.TRANSACTIONS)}
         onViewCategories={() => setView(VIEWS.CATEGORIES)}
         onViewStatistics={() => setView(VIEWS.STATISTICS)}
         onViewBudgets={() => setView(VIEWS.BUDGETS)}
