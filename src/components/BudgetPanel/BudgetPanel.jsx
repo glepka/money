@@ -5,10 +5,13 @@ import { useTransactionStore } from "../../store/transactionsStore";
 import { useSettingsStore } from "../../store/settingsStore";
 import { useTheme } from "../../hooks/useTheme";
 import { formatAmount } from "../../utils/formatters";
-import { calculateBudgetProgress } from "../../utils/calculators";
+import {
+  calculateBudgetProgress,
+  getCurrentPeriod,
+} from "../../utils/calculators";
 import styles from "./BudgetPanel.module.css";
 
-const BudgetPanel = ({ onBack }) => {
+const BudgetPanel = () => {
   const theme = useTheme();
   const budgets = useBudgetStore((state) => state.budgets);
   const addBudget = useBudgetStore((state) => state.addBudget);
@@ -27,11 +30,8 @@ const BudgetPanel = ({ onBack }) => {
     currency: settings.defaultCurrency,
     icon: "💰",
     periodStart: new Date().toISOString().split("T")[0],
-    periodEnd: (() => {
-      const date = new Date();
-      date.setMonth(date.getMonth() + 1);
-      return date.toISOString().split("T")[0];
-    })(),
+    renewalPeriod: "month",
+    customDays: 30,
   });
 
   useEffect(() => {
@@ -48,7 +48,8 @@ const BudgetPanel = ({ onBack }) => {
           currency: budget.currency || settings.defaultCurrency,
           icon: budget.icon || "💰",
           periodStart: budget.periodStart.split("T")[0],
-          periodEnd: budget.periodEnd.split("T")[0],
+          renewalPeriod: budget.renewalPeriod || "month",
+          customDays: budget.customDays || 30,
         });
         setShowForm(true);
       }
@@ -72,7 +73,8 @@ const BudgetPanel = ({ onBack }) => {
       currency: formData.currency,
       icon: formData.icon || "💰",
       periodStart: new Date(formData.periodStart).toISOString(),
-      periodEnd: new Date(formData.periodEnd).toISOString(),
+      renewalPeriod: formData.renewalPeriod,
+      customDays: formData.customDays,
     };
 
     if (editingId) {
@@ -90,11 +92,8 @@ const BudgetPanel = ({ onBack }) => {
       currency: settings.defaultCurrency,
       icon: "💰",
       periodStart: new Date().toISOString().split("T")[0],
-      periodEnd: (() => {
-        const date = new Date();
-        date.setMonth(date.getMonth() + 1);
-        return date.toISOString().split("T")[0];
-      })(),
+      renewalPeriod: "month",
+      customDays: 30,
     });
   };
 
@@ -334,18 +333,52 @@ const BudgetPanel = ({ onBack }) => {
               color: theme.textColor,
             }}
           />
-          <input
-            type="date"
-            label="Конец периода"
-            value={formData.periodEnd}
-            onChange={(e) =>
-              setFormData({ ...formData, periodEnd: e.target.value })
-            }
-            style={{
-              backgroundColor: theme.bgColor,
-              color: theme.textColor,
-            }}
-          />
+          <div className={styles.periodSelector}>
+            <label
+              style={{
+                fontSize: "14px",
+                opacity: 0.8,
+                marginBottom: "8px",
+                display: "block",
+                color: theme.textColor,
+              }}
+            >
+              Период обновления
+            </label>
+            <select
+              value={formData.renewalPeriod}
+              onChange={(e) =>
+                setFormData({ ...formData, renewalPeriod: e.target.value })
+              }
+              style={{
+                backgroundColor: theme.bgColor,
+                color: theme.textColor,
+              }}
+            >
+              <option value="week">Неделя</option>
+              <option value="month">Месяц</option>
+              <option value="custom">Свое количество дней</option>
+            </select>
+            {formData.renewalPeriod === "custom" && (
+              <input
+                type="number"
+                min="1"
+                placeholder="Количество дней"
+                value={formData.customDays}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    customDays: parseInt(e.target.value) || 30,
+                  })
+                }
+                style={{
+                  backgroundColor: theme.bgColor,
+                  color: theme.textColor,
+                  marginTop: "8px",
+                }}
+              />
+            )}
+          </div>
           <div className={styles.formActions}>
             <button
               onClick={() => {
@@ -375,11 +408,12 @@ const BudgetPanel = ({ onBack }) => {
           </div>
         ) : (
           budgets.map((budget) => {
+            const currentPeriod = getCurrentPeriod(budget);
             const progress = calculateBudgetProgress(
               budget,
               transactions,
-              budget.periodStart,
-              budget.periodEnd
+              currentPeriod.start,
+              currentPeriod.end
             );
 
             return (

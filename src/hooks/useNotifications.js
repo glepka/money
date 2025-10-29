@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useBudgetStore } from "../store/budgetsStore";
 import { useTransactionStore } from "../store/transactionsStore";
 import { useSettingsStore } from "../store/settingsStore";
-import { calculateBudgetProgress } from "../utils/calculators";
+import {
+  calculateBudgetProgress,
+  getCurrentPeriod,
+} from "../utils/calculators";
 
 export const useNotifications = () => {
   const budgets = useBudgetStore((state) => state.budgets);
@@ -15,24 +18,31 @@ export const useNotifications = () => {
     }
 
     const checkBudgets = () => {
-      const now = new Date();
-      
       budgets.forEach((budget) => {
-        const startDate = new Date(budget.periodStart);
-        const endDate = new Date(budget.periodEnd);
+        const currentPeriod = getCurrentPeriod(budget);
+        const now = new Date();
+        const periodStart = new Date(currentPeriod.start);
+        const periodEnd = new Date(currentPeriod.end);
         
-        if (now >= startDate && now <= endDate) {
+        if (now >= periodStart && now <= periodEnd) {
           const progress = calculateBudgetProgress(
             budget,
             transactions,
-            budget.periodStart,
-            budget.periodEnd
+            currentPeriod.start,
+            currentPeriod.end
           );
           
           if (progress.exceeded && settings.notifications?.budgetExceeded) {
-            console.warn(`Бюджет "${budget.name}" превышен на ${(progress.percentage - 100).toFixed(1)}%`);
-          } else if (progress.percentage >= 80 && settings.notifications?.budgetWarning) {
-            console.warn(`Бюджет "${budget.name}" почти исчерпан: ${progress.percentage.toFixed(1)}%`);
+            console.warn(
+              `Бюджет "${budget.name}" превышен на ${(progress.percentage - 100).toFixed(1)}%`
+            );
+          } else if (
+            progress.percentage >= 80 &&
+            settings.notifications?.budgetWarning
+          ) {
+            console.warn(
+              `Бюджет "${budget.name}" почти исчерпан: ${progress.percentage.toFixed(1)}%`
+            );
           }
         }
       });
