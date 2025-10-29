@@ -229,15 +229,29 @@ const BudgetPanel = () => {
                           checked={formData.categoryIds.includes(cat.id)}
                           onChange={(e) => {
                             if (e.target.checked) {
+                              // Добавляем категорию и все её подкатегории
+                              const subcategoryIds = subcategories.map(
+                                (sub) => sub.id
+                              );
                               setFormData({
                                 ...formData,
-                                categoryIds: [...formData.categoryIds, cat.id],
+                                categoryIds: [
+                                  ...formData.categoryIds,
+                                  cat.id,
+                                  ...subcategoryIds,
+                                ],
                               });
                             } else {
+                              // Удаляем категорию и все её подкатегории
+                              const subcategoryIds = subcategories.map(
+                                (sub) => sub.id
+                              );
                               setFormData({
                                 ...formData,
                                 categoryIds: formData.categoryIds.filter(
-                                  (id) => id !== cat.id
+                                  (id) =>
+                                    id !== cat.id &&
+                                    !subcategoryIds.includes(id)
                                 ),
                               });
                             }

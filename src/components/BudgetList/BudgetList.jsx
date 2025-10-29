@@ -6,6 +6,7 @@ import { formatAmount } from "../../utils/formatters";
 import {
   calculateBudgetProgress,
   calculateBalance,
+  getCurrentPeriod,
 } from "../../utils/calculators";
 import styles from "./BudgetList.module.css";
 
@@ -101,11 +102,12 @@ const BudgetList = ({ onAdd }) => {
       </div>
       <div className={styles.budgets}>
         {budgets.map((budget) => {
+          const currentPeriod = getCurrentPeriod(budget);
           const progress = calculateBudgetProgress(
             budget,
             transactions,
-            budget.periodStart,
-            budget.periodEnd
+            currentPeriod.start,
+            currentPeriod.end
           );
 
           return (
