@@ -1,12 +1,17 @@
 .app {
   position: relative;
-  min-height: calc(100vh + 10px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  touch-action: pan-y;
 }
 
 .main {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }

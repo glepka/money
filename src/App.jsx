@@ -68,6 +68,31 @@ function App() {
 
   useNotifications();
 
+  // Предотвращение закрытия приложения при скролле
+  useEffect(() => {
+    const handleTouchStart = (e) => {
+      const mainElement = document.querySelector("main");
+      if (mainElement) {
+        const touch = e.touches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (mainElement.contains(target) || mainElement === target) {
+          // Скролл происходит внутри контента - предотвращаем закрытие
+          if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.disableVerticalSwipes();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
+
   const handleAddTransaction = () => {
     setEditingTransactionId(null);
     setView(VIEWS.ADD_TRANSACTION);
