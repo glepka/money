@@ -26,6 +26,7 @@ const BudgetPanel = ({ onBack }) => {
     categoryId: "",
     amount: "",
     currency: settings.defaultCurrency,
+    icon: "💰",
     periodStart: new Date().toISOString().split("T")[0],
     periodEnd: (() => {
       const date = new Date();
@@ -43,6 +44,7 @@ const BudgetPanel = ({ onBack }) => {
           categoryId: budget.categoryId || "",
           amount: budget.amount.toString(),
           currency: budget.currency || settings.defaultCurrency,
+          icon: budget.icon || "💰",
           periodStart: budget.periodStart.split("T")[0],
           periodEnd: budget.periodEnd.split("T")[0],
         });
@@ -65,6 +67,7 @@ const BudgetPanel = ({ onBack }) => {
       categoryId: formData.categoryId || null,
       amount: parseFloat(formData.amount),
       currency: formData.currency,
+      icon: formData.icon || "💰",
       periodStart: new Date(formData.periodStart).toISOString(),
       periodEnd: new Date(formData.periodEnd).toISOString(),
     };
@@ -82,6 +85,7 @@ const BudgetPanel = ({ onBack }) => {
       categoryId: "",
       amount: "",
       currency: settings.defaultCurrency,
+      icon: "💰",
       periodStart: new Date().toISOString().split("T")[0],
       periodEnd: (() => {
         const date = new Date();
@@ -98,6 +102,24 @@ const BudgetPanel = ({ onBack }) => {
   };
 
   const expenseCategories = categories.filter((c) => c.type === "expense");
+
+  const budgetIcons = [
+    "💰",
+    "💵",
+    "💳",
+    "📊",
+    "📈",
+    "🎯",
+    "🏦",
+    "💼",
+    "📱",
+    "🚗",
+    "🏠",
+    "🍔",
+    "🛒",
+    "✈️",
+    "🎮",
+  ];
 
   return (
     <div className={styles.container}>
@@ -135,6 +157,42 @@ const BudgetPanel = ({ onBack }) => {
               color: theme.textColor,
             }}
           />
+          <div className={styles.iconSelector}>
+            <label>Иконка (эмодзи)</label>
+            <div className={styles.emojiInput}>
+              <input
+                type="text"
+                placeholder="Введите эмодзи"
+                value={formData.icon}
+                onChange={(e) =>
+                  setFormData({ ...formData, icon: e.target.value })
+                }
+                maxLength={2}
+                style={{
+                  backgroundColor: theme.bgColor,
+                  color: theme.textColor,
+                  fontSize: "24px",
+                  textAlign: "center",
+                  padding: "12px",
+                }}
+              />
+            </div>
+            <div className={styles.icons}>
+              {budgetIcons.map((icon) => (
+                <button
+                  key={icon}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, icon })}
+                  className={formData.icon === icon ? styles.selected : ""}
+                  style={{
+                    backgroundColor: theme.bgColor,
+                  }}
+                >
+                  {icon}
+                </button>
+              ))}
+            </div>
+          </div>
           <select
             value={formData.categoryId}
             onChange={(e) =>
@@ -255,6 +313,14 @@ const BudgetPanel = ({ onBack }) => {
               >
                 <div className={styles.budgetHeader}>
                   <div className={styles.budgetInfo}>
+                    <div
+                      className={styles.budgetIcon}
+                      style={{
+                        backgroundColor: category?.color || "#999999",
+                      }}
+                    >
+                      {budget.icon || "💰"}
+                    </div>
                     {category && <CategoryBadge category={category} />}
                     <div>
                       <div className={styles.budgetName}>{budget.name}</div>

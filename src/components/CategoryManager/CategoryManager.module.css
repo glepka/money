@@ -134,6 +134,16 @@
   opacity: 0.8;
 }
 
+.emojiInput {
+  margin-bottom: 8px;
+}
+
+.emojiInput input {
+  width: 100%;
+  border: 1px solid;
+  border-radius: 8px;
+}
+
 .icons,
 .colors {
   display: flex;

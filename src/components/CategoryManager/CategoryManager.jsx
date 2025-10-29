@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCategoryStore } from "../../store/categoriesStore";
 import { useTheme } from "../../hooks/useTheme";
 import CategoryBadge from "../shared/CategoryBadge/CategoryBadge";
+import ColorPicker from "../shared/ColorPicker/ColorPicker";
 import styles from "./CategoryManager.module.css";
 
 const CategoryManager = ({ onBack }) => {
@@ -102,19 +103,6 @@ const CategoryManager = ({ onBack }) => {
     setEditingId(null);
     setShowForm(true);
   };
-
-  const colors = [
-    "#4CAF50",
-    "#2196F3",
-    "#FF9800",
-    "#9C27B0",
-    "#E91E63",
-    "#F44336",
-    "#607D8B",
-    "#795548",
-    "#009688",
-    "#00BCD4",
-  ];
 
   const icons = ["📁", "💰", "💵", "🍔", "🚗", "🛒", "💳", "📦", "🏠", "🎮"];
 
@@ -288,7 +276,25 @@ const CategoryManager = ({ onBack }) => {
             </div>
           )}
           <div className={styles.iconSelector}>
-            <label>Иконка</label>
+            <label>Иконка (эмодзи)</label>
+            <div className={styles.emojiInput}>
+              <input
+                type="text"
+                placeholder="Введите эмодзи"
+                value={formData.icon}
+                onChange={(e) =>
+                  setFormData({ ...formData, icon: e.target.value })
+                }
+                maxLength={2}
+                style={{
+                  backgroundColor: theme.bgColor,
+                  color: theme.textColor,
+                  fontSize: "24px",
+                  textAlign: "center",
+                  padding: "12px",
+                }}
+              />
+            </div>
             <div className={styles.icons}>
               {icons.map((icon) => (
                 <button
@@ -296,26 +302,19 @@ const CategoryManager = ({ onBack }) => {
                   type="button"
                   onClick={() => setFormData({ ...formData, icon })}
                   className={formData.icon === icon ? styles.selected : ""}
+                  style={{
+                    backgroundColor: theme.bgColor,
+                  }}
                 >
                   {icon}
                 </button>
               ))}
             </div>
           </div>
-          <div className={styles.colorSelector}>
-            <label>Цвет</label>
-            <div className={styles.colors}>
-              {colors.map((color) => (
-                <button
-                  key={color}
-                  type="button"
-                  onClick={() => setFormData({ ...formData, color })}
-                  className={formData.color === color ? styles.selected : ""}
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
-          </div>
+          <ColorPicker
+            value={formData.color}
+            onChange={(color) => setFormData({ ...formData, color })}
+          />
           <div className={styles.formActions}>
             <button
               onClick={() => {

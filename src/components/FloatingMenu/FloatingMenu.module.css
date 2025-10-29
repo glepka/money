@@ -1,5 +1,5 @@
 .menuButton {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 20px;
   width: 56px;
@@ -84,4 +84,3 @@
     transform: translateX(0);
   }
 }
-

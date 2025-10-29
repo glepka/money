@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mainPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.pickerRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.colorInput {
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+}
+
+.colorInput::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorInput::-webkit-color-swatch {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.colorTextInput {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+.presetColors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.presetLabel {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.colorsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colorButton {
+  width: 40px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.1s ease;
+}
+
+.colorButton:hover {
+  transform: scale(1.1);
+}
+
+.colorButton.selected {
+  border-width: 3px;
+  transform: scale(1.15);
+}
+

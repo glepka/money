@@ -125,6 +125,14 @@ const BudgetList = ({ onAdd }) => {
             >
               <div className={styles.budgetHeader}>
                 <div className={styles.budgetInfo}>
+                  <div
+                    className={styles.budgetIcon}
+                    style={{
+                      backgroundColor: category?.color || "#999999",
+                    }}
+                  >
+                    {budget.icon || "💰"}
+                  </div>
                   {category && <CategoryBadge category={category} />}
                   <div>
                     <div className={styles.budgetName}>{budget.name}</div>
