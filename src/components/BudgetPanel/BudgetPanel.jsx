@@ -35,6 +35,18 @@ const BudgetPanel = () => {
     customDays: 30,
   });
 
+  const totalsByCurrency = budgets.reduce((acc, b) => {
+    const currency = b.currency || settings.defaultCurrency || "RUB";
+    const amount =
+      typeof b.amount === "number" ? b.amount : parseFloat(b.amount) || 0;
+    acc[currency] = (acc[currency] || 0) + amount;
+    return acc;
+  }, {});
+
+  const totalsLine = Object.entries(totalsByCurrency)
+    .map(([currency, amount]) => formatAmount(amount, currency))
+    .join(" + ");
+
   useEffect(() => {
     if (editingId) {
       const budget = budgets.find((b) => b.id === editingId);
@@ -142,6 +154,13 @@ const BudgetPanel = () => {
           + Добавить
         </button>
       </div>
+
+      {budgets.length > 0 && (
+        <div className={styles.totals}>
+          <span>Итого: </span>
+          <strong>{totalsLine}</strong>
+        </div>
+      )}
 
       {showForm && (
         <div
