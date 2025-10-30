@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { useTransactionStore } from "../../store/transactionsStore";
 import { useSettingsStore } from "../../store/settingsStore";
 import { useTheme } from "../../hooks/useTheme";
@@ -6,8 +7,10 @@ import { calculateBalance } from "../../utils/calculators";
 import { formatAmount } from "../../utils/formatters";
 import styles from "./Header.module.css";
 
-const Header = ({ view, onNavigate }) => {
+const Header = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState("");
   const transactions = useTransactionStore((state) => state.transactions);
@@ -21,7 +24,7 @@ const Header = ({ view, onNavigate }) => {
     initialBalance
   );
 
-  const isMainView = view === null;
+  const isMainView = location.pathname === "/";
 
   const handleBalanceClick = () => {
     setIsEditing(true);
@@ -69,7 +72,13 @@ const Header = ({ view, onNavigate }) => {
           {!isMainView && (
             <button
               className={styles.backButton}
-              onClick={() => onNavigate(null)}
+              onClick={() => {
+                if (window.history.length > 1) {
+                  navigate(-1);
+                } else {
+                  navigate("/");
+                }
+              }}
               style={{
                 color: theme.linkColor,
               }}

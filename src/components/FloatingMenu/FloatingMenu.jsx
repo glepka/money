@@ -1,16 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { useTheme } from "../../hooks/useTheme";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import styles from "./FloatingMenu.module.css";
 
-const FloatingMenu = ({
-  onViewTransactions,
-  onViewCategories,
-  onViewStatistics,
-  onViewBudgets,
-  onViewCurrencies,
-  onViewExport,
-}) => {
+const FloatingMenu = () => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -22,10 +16,7 @@ const FloatingMenu = ({
     setIsMenuOpen(false);
   };
 
-  const handleMenuItemClick = (handler) => {
-    handler();
-    handleMenuClose();
-  };
+  const handleLinkClick = () => handleMenuClose();
 
   return (
     <>
@@ -50,60 +41,54 @@ const FloatingMenu = ({
               borderBottom: `1px solid ${theme.hintColor}20`,
             }}
           >
-            <button
+            <Link
+              to="/transactions"
               className={styles.menuItem}
-              onClick={() => handleMenuItemClick(onViewTransactions)}
-              style={{
-                color: theme.textColor,
-              }}
+              onClick={handleLinkClick}
+              style={{ color: theme.textColor }}
             >
               📋 Транзакции
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/statistics"
               className={styles.menuItem}
-              onClick={() => handleMenuItemClick(onViewStatistics)}
-              style={{
-                color: theme.textColor,
-              }}
+              onClick={handleLinkClick}
+              style={{ color: theme.textColor }}
             >
               📊 Статистика
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/budgets"
               className={styles.menuItem}
-              onClick={() => handleMenuItemClick(onViewBudgets)}
-              style={{
-                color: theme.textColor,
-              }}
+              onClick={handleLinkClick}
+              style={{ color: theme.textColor }}
             >
               💰 Бюджеты
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/categories"
               className={styles.menuItem}
-              onClick={() => handleMenuItemClick(onViewCategories)}
-              style={{
-                color: theme.textColor,
-              }}
+              onClick={handleLinkClick}
+              style={{ color: theme.textColor }}
             >
               🏷️ Категории
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/currencies"
               className={styles.menuItem}
-              onClick={() => handleMenuItemClick(onViewCurrencies)}
-              style={{
-                color: theme.textColor,
-              }}
+              onClick={handleLinkClick}
+              style={{ color: theme.textColor }}
             >
               💱 Валюты
-            </button>
-            <button
+            </Link>
+            <Link
+              to="/export"
               className={styles.menuItem}
-              onClick={() => handleMenuItemClick(onViewExport)}
-              style={{
-                color: theme.textColor,
-              }}
+              onClick={handleLinkClick}
+              style={{ color: theme.textColor }}
             >
               📤 Экспорт
-            </button>
+            </Link>
             <div
               style={{
                 borderTop: `1px solid ${theme.hintColor}20`,
