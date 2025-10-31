@@ -1,10 +1,10 @@
 .addButton {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: calc(var(--ios-spacing-lg) + env(safe-area-inset-bottom));
+  right: var(--ios-spacing-lg);
   width: 56px;
   height: 56px;
-  border-radius: 50%;
+  border-radius: var(--ios-radius-full);
   border: none;
   font-size: 32px;
   font-weight: 300;
@@ -13,12 +13,15 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s, opacity 0.2s;
+  box-shadow: var(--ios-shadow-md);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.2s ease, 
+              box-shadow 0.2s ease;
 }
 
 .addButton:active {
-  transform: scale(0.95);
-  opacity: 0.9;
+  transform: scale(0.92);
+  opacity: 0.85;
+  box-shadow: var(--ios-shadow-sm);
 }
 

@@ -102,7 +102,7 @@ const Header = () => {
                   autoFocus
                   className={styles.balanceInput}
                   style={{
-                    color: parseFloat(editValue) >= 0 ? "#4CAF50" : "#F44336",
+                    color: parseFloat(editValue) >= 0 ? theme.incomeColor : theme.expenseColor,
                     borderColor: theme.hintColor,
                     backgroundColor: theme.bgColor,
                   }}
@@ -113,7 +113,7 @@ const Header = () => {
                 className={styles.amount}
                 onClick={handleBalanceClick}
                 style={{
-                  color: balance >= 0 ? "#4CAF50" : "#F44336",
+                  color: balance >= 0 ? theme.incomeColor : theme.expenseColor,
                   cursor: "pointer",
                 }}
                 title="Нажмите для редактирования"

@@ -1,101 +1,153 @@
 .formContainer {
-  padding: 16px;
+  padding: var(--ios-spacing-md);
+  padding-bottom: var(--ios-spacing-xl);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--ios-spacing-lg);
 }
 
 .typeSelector {
   display: flex;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: var(--ios-spacing-xs);
+  border-radius: var(--ios-radius-md);
 }
 
 .typeButton {
   flex: 1;
-  padding: 12px;
+  padding: var(--ios-spacing-md);
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: var(--ios-radius-sm);
+  font-size: var(--ios-font-size-body);
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: transparent;
+  color: inherit;
+}
+
+.typeButton.active {
+  background-color: var(--ios-blue);
+  color: white;
+  box-shadow: var(--ios-shadow-sm);
 }
 
 .typeButton:active {
-  opacity: 0.7;
+  transform: scale(0.98);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .field label {
-  font-size: 14px;
-  font-weight: 500;
-  opacity: 0.8;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 600;
+  opacity: 0.7;
+  letter-spacing: -0.1px;
 }
 
 .amountInput {
   display: flex;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .amountInput input {
   flex: 1;
-  padding: 12px;
-  border: 1px solid;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
+  font-weight: 500;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.amountInput input:focus {
+  border-color: var(--ios-blue);
+  background-color: rgba(0, 122, 255, 0.05);
 }
 
 .amountInput select {
-  padding: 12px;
-  border: 1px solid;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
+  font-weight: 500;
   cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.amountInput select:focus {
+  border-color: var(--ios-blue);
+  background-color: rgba(0, 122, 255, 0.05);
 }
 
 .field input[type="date"],
 .field select,
 .field textarea {
-  padding: 12px;
-  border: 1px solid;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
   font-family: inherit;
+  font-weight: 500;
   resize: vertical;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.field input[type="date"]:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--ios-blue);
+  background-color: rgba(0, 122, 255, 0.05);
 }
 
 .field textarea {
-  min-height: 80px;
+  min-height: 100px;
+  line-height: 1.5;
 }
 
 .actions {
   display: flex;
-  gap: 12px;
-  margin-top: 8px;
+  gap: var(--ios-spacing-md);
+  margin-top: var(--ios-spacing-md);
 }
 
 .cancelButton,
 .submitButton {
   flex: 1;
-  padding: 14px;
+  padding: var(--ios-spacing-md);
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--ios-shadow-sm);
 }
 
-.cancelButton:active,
+.cancelButton {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cancelButton:active {
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+.submitButton {
+  box-shadow: var(--ios-shadow-md);
+}
+
 .submitButton:active {
-  opacity: 0.7;
+  transform: scale(0.98);
+  opacity: 0.9;
+  box-shadow: var(--ios-shadow-sm);
 }
 

@@ -1,38 +1,53 @@
 .header {
-  padding: 12px 16px;
+  padding: var(--ios-spacing-md) var(--ios-spacing-lg);
+  padding-top: calc(var(--ios-spacing-md) + env(safe-area-inset-top));
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: background-color 0.3s ease;
 }
 
 .topRow {
-  margin-bottom: 8px;
+  margin-bottom: var(--ios-spacing-sm);
 }
 
 .backButton {
   background: none;
   border: none;
-  font-size: 16px;
-  padding: 8px 0;
+  font-size: var(--ios-font-size-body);
+  padding: var(--ios-spacing-sm) 0;
   cursor: pointer;
   font-weight: 500;
+  transition: opacity 0.2s ease;
+  color: var(--ios-blue);
+  display: flex;
+  align-items: center;
+  gap: var(--ios-spacing-xs);
+}
+
+.backButton:active {
+  opacity: 0.6;
 }
 
 .menuButton {
   background: none;
   border: none;
   font-size: 24px;
-  padding: 8px;
+  padding: var(--ios-spacing-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border-radius: var(--ios-radius-sm);
 }
 
 .menuButton:active {
   opacity: 1;
+  transform: scale(0.95);
 }
 
 .content {
@@ -44,17 +59,21 @@
 .balance {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--ios-spacing-xs);
 }
 
 .label {
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: var(--ios-font-size-caption1);
+  font-weight: 500;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .amount {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-large-title);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .balanceEdit {
@@ -63,14 +82,16 @@
 }
 
 .balanceInput {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-large-title);
+  font-weight: 700;
   border: 2px solid;
-  border-radius: 4px;
-  padding: 4px 8px;
-  width: 150px;
+  border-radius: var(--ios-radius-md);
+  padding: var(--ios-spacing-xs) var(--ios-spacing-sm);
+  width: 180px;
   outline: none;
   font-family: inherit;
+  letter-spacing: -0.5px;
+  transition: border-color 0.2s ease;
 }
 
 .menuOverlay {

@@ -1,140 +1,199 @@
 .container {
-  padding: 20px;
+  padding: var(--ios-spacing-md);
 }
 
 .summary {
-  padding: 16px;
-  margin: 16px;
-  border-radius: 12px;
+  padding: var(--ios-spacing-md);
+  margin: 0 0 var(--ios-spacing-md) 0;
+  border-radius: var(--ios-radius-lg);
   display: flex;
   justify-content: space-around;
-  gap: 16px;
+  gap: var(--ios-spacing-md);
+  box-shadow: var(--ios-shadow-sm);
 }
 
 .summaryItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: var(--ios-spacing-xs);
 }
 
 .summaryLabel {
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: var(--ios-font-size-caption1);
+  font-weight: 500;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .summaryAmount {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-headline);
+  font-weight: 600;
 }
 
 .filters {
-  margin: 0 16px 16px;
+  margin: 0 0 var(--ios-spacing-md) 0;
 }
 
 .filterToggle {
   width: 100%;
-  padding: 12px;
+  padding: var(--ios-spacing-md);
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
   cursor: pointer;
   text-align: left;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.filterToggle:active {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .filterPanel {
-  margin-top: 8px;
-  padding: 12px;
-  border-radius: 8px;
+  margin-top: var(--ios-spacing-sm);
+  padding: var(--ios-spacing-md);
+  border-radius: var(--ios-radius-md);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--ios-spacing-md);
+  box-shadow: var(--ios-shadow-sm);
 }
 
 .periodButtons {
   display: flex;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .periodButtons button {
   flex: 1;
-  padding: 8px;
+  padding: var(--ios-spacing-sm) var(--ios-spacing-md);
   border: none;
-  border-radius: 6px;
-  font-size: 12px;
+  border-radius: var(--ios-radius-sm);
+  font-size: var(--ios-font-size-subhead);
   cursor: pointer;
-  opacity: 0.6;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.periodButtons button:hover {
-  opacity: 1;
+.periodButtons button:active {
+  background-color: rgba(0, 122, 255, 0.1);
+  transform: scale(0.98);
 }
 
 .dateInputs {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .dateInputs input {
   flex: 1;
-  padding: 8px;
-  border: 1px solid;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: var(--ios-spacing-sm) var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-sm);
+  font-size: var(--ios-font-size-body);
+  transition: border-color 0.2s ease;
+}
+
+.dateInputs input:focus {
+  border-color: var(--ios-blue);
 }
 
 .typeFilter {
   display: flex;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: var(--ios-spacing-xs);
+  border-radius: var(--ios-radius-md);
 }
 
 .typeFilter button {
   flex: 1;
-  padding: 8px;
+  padding: var(--ios-spacing-sm) var(--ios-spacing-md);
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: var(--ios-radius-sm);
+  font-size: var(--ios-font-size-subhead);
   cursor: pointer;
-  opacity: 0.6;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  background-color: transparent;
 }
 
 .typeFilter button.active {
-  opacity: 1;
-  font-weight: bold;
+  background-color: var(--ios-blue);
+  color: white;
+}
+
+.typeFilter button:active {
+  transform: scale(0.98);
 }
 
 .filterPanel select {
-  padding: 8px;
-  border: 1px solid;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: var(--ios-spacing-sm) var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-sm);
+  font-size: var(--ios-font-size-body);
+  transition: border-color 0.2s ease;
+}
+
+.filterPanel select:focus {
+  border-color: var(--ios-blue);
 }
 
 .transactions {
-  padding: 0 16px;
+  padding: 0;
 }
 
 .dateGroup {
-  margin-bottom: 24px;
+  margin-bottom: var(--ios-spacing-xl);
 }
 
 .dateHeader {
-  font-size: 12px;
+  font-size: var(--ios-font-size-caption1);
   font-weight: 600;
   text-transform: uppercase;
-  margin-bottom: 8px;
-  padding: 0 4px;
+  margin-bottom: var(--ios-spacing-md);
+  padding: 0 var(--ios-spacing-md);
+  letter-spacing: 0.5px;
+  opacity: 0.6;
 }
 
 .transaction {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  gap: 8px;
+  padding: var(--ios-spacing-md);
+  margin-bottom: var(--ios-spacing-xs);
+  margin-left: var(--ios-spacing-md);
+  margin-right: var(--ios-spacing-md);
+  border-radius: var(--ios-radius-md);
+  gap: var(--ios-spacing-md);
+  box-shadow: var(--ios-shadow-sm);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.transaction::after {
+  content: "";
+  position: absolute;
+  left: var(--ios-spacing-md);
+  right: var(--ios-spacing-md);
+  bottom: 0;
+  height: 0.5px;
+  background-color: var(--ios-separator);
+  opacity: 0.3;
+}
+
+.transaction:last-child::after {
+  display: none;
+}
+
+.transaction:active {
+  transform: scale(0.98);
+  box-shadow: var(--ios-shadow-sm);
 }
 
 .transactionContent {
@@ -143,18 +202,13 @@
   align-items: center;
   flex: 1;
   cursor: pointer;
-  transition: opacity 0.2s;
   min-width: 0;
-}
-
-.transactionContent:active {
-  opacity: 0.7;
 }
 
 .transactionMain {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--ios-spacing-md);
   flex: 1;
   min-width: 0;
 }
@@ -165,23 +219,26 @@
 }
 
 .transactionDescription {
-  font-size: 16px;
+  font-size: var(--ios-font-size-body);
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 1.4;
 }
 
 .transactionCurrency {
-  font-size: 12px;
+  font-size: var(--ios-font-size-caption1);
   opacity: 0.6;
-  margin-top: 2px;
+  margin-top: var(--ios-spacing-xs);
+  font-weight: 500;
 }
 
 .transactionAmount {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-headline);
+  font-weight: 600;
   white-space: nowrap;
+  letter-spacing: -0.3px;
 }
 
 .deleteButton {
@@ -190,43 +247,49 @@
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: var(--ios-spacing-sm);
   opacity: 0.5;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease, transform 0.1s ease;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 32px;
-  min-height: 32px;
-}
-
-.deleteButton:hover {
-  opacity: 1;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: var(--ios-radius-sm);
 }
 
 .deleteButton:active {
-  opacity: 0.7;
+  opacity: 0.8;
+  transform: scale(0.9);
+  background-color: rgba(255, 59, 48, 0.1);
 }
 
 .empty {
-  padding: 48px 16px;
+  padding: var(--ios-spacing-xl) var(--ios-spacing-md);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--ios-spacing-lg);
 }
 
 .empty p {
-  font-size: 16px;
+  font-size: var(--ios-font-size-body);
   opacity: 0.6;
+  font-weight: 500;
 }
 
 .empty button {
-  padding: 12px 24px;
+  padding: var(--ios-spacing-md) var(--ios-spacing-lg);
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.empty button:active {
+  transform: scale(0.98);
+  opacity: 0.9;
 }

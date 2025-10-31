@@ -5,13 +5,24 @@
   flex-direction: column;
   overflow: hidden;
   touch-action: pan-y;
+  transition: background-color 0.3s ease;
 }
 
 .main {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: 20px;
+  padding-bottom: var(--ios-spacing-xl);
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+.main {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

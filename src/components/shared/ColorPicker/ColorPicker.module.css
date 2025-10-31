@@ -1,23 +1,24 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--ios-spacing-md);
 }
 
 .mainPicker {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .label {
-  font-size: 14px;
-  opacity: 0.8;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 600;
+  opacity: 0.7;
 }
 
 .pickerRow {
   display: flex;
-  gap: 12px;
+  gap: var(--ios-spacing-md);
   align-items: center;
 }
 
@@ -25,10 +26,16 @@
   width: 60px;
   height: 60px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--ios-radius-md);
   cursor: pointer;
   padding: 0;
   background: none;
+  box-shadow: var(--ios-shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.colorInput:active {
+  transform: scale(0.95);
 }
 
 .colorInput::-webkit-color-swatch-wrapper {
@@ -37,51 +44,61 @@
 
 .colorInput::-webkit-color-swatch {
   border: 2px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
+  border-radius: var(--ios-radius-sm);
 }
 
 .colorTextInput {
   flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-subhead);
   font-family: monospace;
   text-transform: uppercase;
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+.colorTextInput:focus {
+  border-color: var(--ios-blue);
+  background-color: rgba(0, 122, 255, 0.05);
 }
 
 .presetColors {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .presetLabel {
-  font-size: 14px;
-  opacity: 0.8;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 600;
+  opacity: 0.7;
 }
 
 .colorsGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .colorButton {
-  width: 40px;
-  height: 40px;
-  border: 2px solid transparent;
-  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  border: 3px solid transparent;
+  border-radius: var(--ios-radius-full);
   cursor: pointer;
   padding: 0;
-  transition: transform 0.1s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--ios-shadow-sm);
 }
 
-.colorButton:hover {
-  transform: scale(1.1);
+.colorButton:active {
+  transform: scale(0.9);
 }
 
 .colorButton.selected {
-  border-width: 3px;
-  transform: scale(1.15);
+  border-color: var(--ios-blue);
+  transform: scale(1.1);
+  box-shadow: var(--ios-shadow-md);
 }
-

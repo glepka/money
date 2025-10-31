@@ -1,60 +1,81 @@
 .container {
-  padding: 16px;
-  padding-bottom: 80px;
+  padding: var(--ios-spacing-md);
+  padding-bottom: calc(var(--ios-spacing-xl) + env(safe-area-inset-bottom));
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: var(--ios-spacing-lg);
 }
 
 .header h2 {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-title2);
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .periodSelector {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: var(--ios-spacing-sm);
+  margin-bottom: var(--ios-spacing-lg);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: var(--ios-spacing-xs);
+  border-radius: var(--ios-radius-md);
 }
 
 .periodSelector button {
   flex: 1;
-  padding: 10px;
+  padding: var(--ios-spacing-sm) var(--ios-spacing-md);
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: var(--ios-radius-sm);
+  font-size: var(--ios-font-size-subhead);
   cursor: pointer;
-  opacity: 0.6;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background-color: transparent;
+}
+
+.periodSelector button.active {
+  background-color: var(--ios-blue);
+  color: white;
 }
 
 .periodSelector button:active {
-  opacity: 1;
+  transform: scale(0.98);
 }
 
 .dateRange {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: var(--ios-spacing-sm);
+  margin-bottom: var(--ios-spacing-lg);
 }
 
 .dateRange input {
   flex: 1;
-  padding: 10px;
-  border: 1px solid;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: var(--ios-spacing-md);
+  border: 0.5px solid;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+.dateRange input:focus {
+  border-color: var(--ios-blue);
+  background-color: rgba(0, 122, 255, 0.05);
 }
 
 .summary {
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 24px;
+  padding: var(--ios-spacing-lg);
+  border-radius: var(--ios-radius-lg);
+  margin-bottom: var(--ios-spacing-xl);
+  box-shadow: var(--ios-shadow-sm);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .summaryItem {
-  margin-bottom: 16px;
+  margin-bottom: var(--ios-spacing-lg);
   position: relative;
 }
 
@@ -63,100 +84,122 @@
 }
 
 .summaryLabel {
-  font-size: 12px;
-  opacity: 0.7;
-  margin-bottom: 4px;
+  font-size: var(--ios-font-size-caption1);
+  font-weight: 600;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--ios-spacing-xs);
 }
 
 .summaryAmount {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
+  font-size: var(--ios-font-size-title2);
+  font-weight: 700;
+  margin-bottom: var(--ios-spacing-sm);
+  letter-spacing: -0.5px;
 }
 
 .summaryBar {
-  height: 4px;
-  border-radius: 2px;
-  transition: width 0.3s;
+  height: 6px;
+  border-radius: var(--ios-radius-full);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .categoryStats {
-  margin-bottom: 24px;
+  margin-bottom: var(--ios-spacing-xl);
 }
 
 .sectionTitle {
-  font-size: 16px;
+  font-size: var(--ios-font-size-headline);
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: var(--ios-spacing-md);
   opacity: 0.8;
+  letter-spacing: -0.2px;
 }
 
 .categoryStat {
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  padding: var(--ios-spacing-md);
+  border-radius: var(--ios-radius-md);
+  margin-bottom: var(--ios-spacing-sm);
+  box-shadow: var(--ios-shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.categoryStat:active {
+  transform: scale(0.98);
 }
 
 .categoryStatInfo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
+  gap: var(--ios-spacing-md);
+  margin-bottom: var(--ios-spacing-sm);
 }
 
 .categoryStatIcon {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--ios-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 20px;
+  box-shadow: var(--ios-shadow-sm);
 }
 
 .categoryStatName {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 600;
   flex: 1;
 }
 
 .categoryStatAmount {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 4px;
+  font-size: var(--ios-font-size-headline);
+  font-weight: 700;
+  margin-bottom: var(--ios-spacing-xs);
+  letter-spacing: -0.3px;
 }
 
 .categoryStatBar {
-  height: 3px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: var(--ios-radius-full);
   overflow: hidden;
 }
 
 .categoryStatBar > div {
   height: 100%;
-  transition: width 0.3s;
+  border-radius: var(--ios-radius-full);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .monthlyStats {
-  margin-bottom: 24px;
+  margin-bottom: var(--ios-spacing-xl);
 }
 
 .monthItem {
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  padding: var(--ios-spacing-md);
+  border-radius: var(--ios-radius-md);
+  margin-bottom: var(--ios-spacing-sm);
+  box-shadow: var(--ios-shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.monthItem:active {
+  transform: scale(0.98);
 }
 
 .monthLabel {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 600;
+  margin-bottom: var(--ios-spacing-sm);
 }
 
 .monthValues {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 500;
 }
-

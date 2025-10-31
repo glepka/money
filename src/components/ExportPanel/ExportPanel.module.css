@@ -1,38 +1,46 @@
 .container {
-  padding: 16px;
-  padding-bottom: 80px;
+  padding: var(--ios-spacing-md);
+  padding-bottom: calc(var(--ios-spacing-xl) + env(safe-area-inset-bottom));
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: var(--ios-spacing-lg);
 }
 
 .header h2 {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-title2);
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .info {
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 24px;
+  padding: var(--ios-spacing-lg);
+  border-radius: var(--ios-radius-lg);
+  margin-bottom: var(--ios-spacing-xl);
+  box-shadow: var(--ios-shadow-sm);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .info p {
-  margin-bottom: 16px;
-  opacity: 0.8;
-  line-height: 1.5;
+  margin-bottom: var(--ios-spacing-lg);
+  opacity: 0.7;
+  line-height: 1.6;
+  font-size: var(--ios-font-size-body);
+  font-weight: 500;
 }
 
 .stats {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--ios-spacing-sm);
 }
 
 .stat {
   display: flex;
   justify-content: space-between;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 500;
 }
 
 .statLabel {
@@ -46,28 +54,32 @@
 .exportOptions {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--ios-spacing-xl);
 }
 
 .exportButton {
   width: 100%;
-  padding: 16px;
+  padding: var(--ios-spacing-md);
   border: none;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 500;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--ios-shadow-md);
+  letter-spacing: -0.1px;
 }
 
 .exportButton:active {
-  opacity: 0.7;
+  transform: scale(0.98);
+  opacity: 0.9;
+  box-shadow: var(--ios-shadow-sm);
 }
 
 .exportDescription {
-  font-size: 14px;
-  opacity: 0.7;
-  line-height: 1.5;
-  margin-top: -16px;
+  font-size: var(--ios-font-size-subhead);
+  opacity: 0.6;
+  line-height: 1.6;
+  margin-top: calc(-1 * var(--ios-spacing-lg));
+  font-weight: 500;
 }
-

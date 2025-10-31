@@ -1,10 +1,10 @@
 .menuButton {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: var(--ios-spacing-lg);
+  left: var(--ios-spacing-lg);
   width: 56px;
   height: 56px;
-  border-radius: 50%;
+  border-radius: var(--ios-radius-full);
   border: none;
   font-size: 24px;
   cursor: pointer;
@@ -12,13 +12,14 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s, opacity 0.2s;
+  box-shadow: var(--ios-shadow-md);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .menuButton:active {
   transform: scale(0.95);
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .menuOverlay {
@@ -27,9 +28,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 99;
-  animation: fadeIn 0.2s;
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu {
@@ -37,34 +40,63 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 280px;
+  width: 320px;
   max-width: 85vw;
-  padding: 16px;
+  padding: var(--ios-spacing-lg);
+  padding-top: calc(var(--ios-spacing-xl) + env(safe-area-inset-top));
+  padding-bottom: calc(var(--ios-spacing-xl) + env(safe-area-inset-bottom));
   z-index: 101;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 12px;
-  padding-bottom: 100px;
-  animation: slideInLeft 0.3s ease-out;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  gap: var(--ios-spacing-xs);
+  animation: slideInLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--ios-shadow-lg);
   overflow-y: auto;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
 }
 
 .menuItem {
-  padding: 16px;
+  padding: var(--ios-spacing-md) var(--ios-spacing-lg);
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: var(--ios-radius-md);
+  font-size: var(--ios-font-size-body);
   text-align: left;
   cursor: pointer;
   background-color: transparent;
-  transition: opacity 0.2s;
+  transition: background-color 0.2s ease, transform 0.1s ease;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--ios-spacing-md);
+  position: relative;
+}
+
+.menuItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.5px;
+  background-color: var(--ios-separator);
+  opacity: 0.5;
+}
+
+.menuItem:last-child::before {
+  display: none;
 }
 
 .menuItem:active {
-  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(0.98);
+}
+
+@media (prefers-color-scheme: dark) {
+  .menuItem:active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 @keyframes fadeIn {

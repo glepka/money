@@ -192,8 +192,8 @@ const TransactionList = ({ onAdd, onEdit }) => {
                           style={{
                             color:
                               transaction.type === "income"
-                                ? "#4CAF50"
-                                : "#F44336",
+                                ? theme.incomeColor
+                                : theme.expenseColor,
                           }}
                         >
                           {transaction.type === "income" ? "+" : "-"}

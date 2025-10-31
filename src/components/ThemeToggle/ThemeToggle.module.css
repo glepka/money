@@ -2,42 +2,55 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
-  gap: 16px;
+  padding: var(--ios-spacing-md);
+  gap: var(--ios-spacing-md);
 }
 
 .label {
-  font-size: 16px;
+  font-size: var(--ios-font-size-body);
   font-weight: 500;
   flex: 1;
+  letter-spacing: -0.1px;
 }
 
 .toggle {
   position: relative;
-  width: 52px;
-  height: 32px;
-  border-radius: 16px;
+  width: 51px;
+  height: 31px;
+  border-radius: var(--ios-radius-full);
   border: none;
   cursor: pointer;
   padding: 0;
-  background-color: #ccc;
-  transition: background-color 0.3s;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   overflow: hidden;
 }
 
+.toggle.active {
+  background-color: var(--ios-blue);
+}
+
 .slider {
   position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  border-radius: var(--ios-radius-full);
   background-color: #ffffff;
-  transition: transform 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--ios-shadow-sm);
+}
+
+.toggle.active .slider {
+  transform: translateX(20px);
 }
 
 .toggle:active .slider {
   transform: scale(0.95);
+}
+
+.toggle.active:active .slider {
+  transform: translateX(20px) scale(0.95);
 }

@@ -49,13 +49,13 @@ const BudgetList = ({ onAdd }) => {
         >
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Доходы</span>
-            <span className={styles.summaryAmount} style={{ color: "#4CAF50" }}>
+            <span className={styles.summaryAmount} style={{ color: theme.incomeColor }}>
               {formatAmount(income, settings.defaultCurrency)}
             </span>
           </div>
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Расходы</span>
-            <span className={styles.summaryAmount} style={{ color: "#F44336" }}>
+            <span className={styles.summaryAmount} style={{ color: theme.expenseColor }}>
               {formatAmount(expenses, settings.defaultCurrency)}
             </span>
           </div>
@@ -63,7 +63,7 @@ const BudgetList = ({ onAdd }) => {
             <span className={styles.summaryLabel}>Баланс</span>
             <span
               className={styles.summaryAmount}
-              style={{ color: balance >= 0 ? "#4CAF50" : "#F44336" }}
+              style={{ color: balance >= 0 ? theme.incomeColor : theme.expenseColor }}
             >
               {formatAmount(Math.abs(balance), settings.defaultCurrency)}
             </span>
@@ -141,7 +141,7 @@ const BudgetList = ({ onAdd }) => {
               </div>
               <div className={styles.budgetProgress}>
                 <div className={styles.budgetAmounts}>
-                  <span style={{ color: "#F44336" }}>
+                  <span style={{ color: theme.expenseColor }}>
                     {formatAmount(progress.spent, budget.currency)}
                   </span>
                   <span style={{ opacity: 0.6 }}>
@@ -154,10 +154,10 @@ const BudgetList = ({ onAdd }) => {
                     style={{
                       width: `${progress.percentage}%`,
                       backgroundColor: progress.exceeded
-                        ? "#F44336"
+                        ? theme.expenseColor
                         : progress.percentage >= 80
-                        ? "#FF9800"
-                        : "#4CAF50",
+                        ? "#FF9500"
+                        : theme.incomeColor,
                     }}
                   />
                 </div>
@@ -167,7 +167,7 @@ const BudgetList = ({ onAdd }) => {
                   </span>
                   <span
                     style={{
-                      color: progress.remaining >= 0 ? "#4CAF50" : "#F44336",
+                      color: progress.remaining >= 0 ? theme.incomeColor : theme.expenseColor,
                     }}
                   >
                     {progress.remaining >= 0 ? "Осталось" : "Превышено"}:{" "}

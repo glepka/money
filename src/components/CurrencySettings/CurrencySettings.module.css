@@ -1,70 +1,95 @@
 .container {
-  padding: 16px;
-  padding-bottom: 80px;
+  padding: var(--ios-spacing-md);
+  padding-bottom: calc(var(--ios-spacing-xl) + env(safe-area-inset-bottom));
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: var(--ios-spacing-lg);
 }
 
 .header h2 {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--ios-font-size-title2);
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .section {
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 16px;
+  padding: var(--ios-spacing-lg);
+  border-radius: var(--ios-radius-lg);
+  margin-bottom: var(--ios-spacing-md);
+  box-shadow: var(--ios-shadow-sm);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .sectionTitle {
-  font-size: 16px;
+  font-size: var(--ios-font-size-headline);
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: var(--ios-spacing-md);
   opacity: 0.8;
+  letter-spacing: -0.2px;
 }
 
 .currencyList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--ios-spacing-xs);
 }
 
 .currencyItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 8px;
+  gap: var(--ios-spacing-md);
+  padding: var(--ios-spacing-md);
+  border-radius: var(--ios-radius-md);
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.currencyItem::after {
+  content: "";
+  position: absolute;
+  left: var(--ios-spacing-md);
+  right: var(--ios-spacing-md);
+  bottom: 0;
+  height: 0.5px;
+  background-color: var(--ios-separator);
+  opacity: 0.3;
+}
+
+.currencyItem:last-child::after {
+  display: none;
 }
 
 .currencyItem:active {
-  opacity: 0.7;
+  transform: scale(0.98);
+  background-color: rgba(0, 122, 255, 0.05);
 }
 
 .currencyItem input[type="radio"] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
+  accent-color: var(--ios-blue);
 }
 
 .currencySymbol {
-  font-size: 20px;
-  font-weight: bold;
-  min-width: 30px;
+  font-size: var(--ios-font-size-title3);
+  font-weight: 700;
+  min-width: 36px;
+  letter-spacing: -0.2px;
 }
 
 .currencyCode {
   font-weight: 600;
-  min-width: 50px;
+  min-width: 60px;
+  font-size: var(--ios-font-size-body);
 }
 
 .currencyName {
   flex: 1;
-  opacity: 0.8;
-  font-size: 14px;
+  opacity: 0.7;
+  font-size: var(--ios-font-size-subhead);
+  font-weight: 500;
 }
-
