@@ -49,13 +49,19 @@ const BudgetList = ({ onAdd }) => {
         >
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Доходы</span>
-            <span className={styles.summaryAmount} style={{ color: theme.incomeColor }}>
+            <span
+              className={styles.summaryAmount}
+              style={{ color: theme.incomeColor }}
+            >
               {formatAmount(income, settings.defaultCurrency)}
             </span>
           </div>
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Расходы</span>
-            <span className={styles.summaryAmount} style={{ color: theme.expenseColor }}>
+            <span
+              className={styles.summaryAmount}
+              style={{ color: theme.expenseColor }}
+            >
               {formatAmount(expenses, settings.defaultCurrency)}
             </span>
           </div>
@@ -63,7 +69,9 @@ const BudgetList = ({ onAdd }) => {
             <span className={styles.summaryLabel}>Баланс</span>
             <span
               className={styles.summaryAmount}
-              style={{ color: balance >= 0 ? theme.incomeColor : theme.expenseColor }}
+              style={{
+                color: balance >= 0 ? theme.incomeColor : theme.expenseColor,
+              }}
             >
               {formatAmount(Math.abs(balance), settings.defaultCurrency)}
             </span>
@@ -167,7 +175,10 @@ const BudgetList = ({ onAdd }) => {
                   </span>
                   <span
                     style={{
-                      color: progress.remaining >= 0 ? theme.incomeColor : theme.expenseColor,
+                      color:
+                        progress.remaining >= 0
+                          ? theme.incomeColor
+                          : theme.expenseColor,
                     }}
                   >
                     {progress.remaining >= 0 ? "Осталось" : "Превышено"}:{" "}
